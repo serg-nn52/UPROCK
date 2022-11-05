@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "email": "uprock@uprock.ru",
+    "name": "Данил Матузов",
+    "photo": "1",
+    "token": "accessToken",
+    "password": "uprock"
+  },
+  {
+    "id": "2",
+    "email": "serg-nn@inbox.ru",
+    "name": "Сергей Лушкин",
+    "photo": "2",
+    "token": "accessToken",
+    "password": "uprock"
+  }
+]
