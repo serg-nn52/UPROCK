@@ -1,6 +1,8 @@
+import { paths } from './../../router/index';
 import { State } from '../index';
 import { axiosInstance } from '@/network';
 import router from '@/router';
+import { ActionContext } from 'vuex';
 
 export type TUserType = {
   id: string;
@@ -11,53 +13,60 @@ export type TUserType = {
   password: string;
 };
 
-const initialUserState: TUserType = {} as TUserType;
+export type TUserState = {
+  user: TUserType;
+  statusRequest: string;
+};
+
+const initialUserState = {
+  user: {} as TUserType,
+  statusRequest: 'notSend',
+};
 
 export default {
   actions: {
-    async userAuth({ commit, getters }: any, user: TUserType) {
+    async userAuth(ctx: ActionContext<TUserState, State>, user: TUserType) {
+      const { commit, getters } = ctx;
       try {
         const res = await axiosInstance.post('/api/users', user);
         if (res.status === 200) {
           commit('addUser', res.data);
-          getters.getToken && router.push('/');
+          getters.getToken && router.push(paths.HOME);
         }
         commit('addStatus', res.status);
       } catch (e: any) {
         commit('addStatus', e.response.status);
-        console.log(e);
       }
     },
   },
   mutations: {
-    addUser(state: State, user: TUserType) {
+    addUser(state: TUserState, user: TUserType) {
       state.user = user;
     },
-    addStatus(state: State, status: number) {
+    addStatus(state: TUserState, status: number) {
       state.statusRequest = '' + status;
     },
-    addLoading(state: State) {
+    addLoading(state: TUserState) {
       state.statusRequest = 'loading';
     },
-    resetState(state: State) {
-      (state.statusRequest = 'notSend'), (state.user = initialUserState);
+    resetState(state: TUserState) {
+      (state.statusRequest = 'notSend'), (state = initialUserState);
     },
   },
   getters: {
-    getStatus(state: State) {
+    getStatus(state: TUserState) {
       return state.statusRequest;
     },
-    getUser(state: State) {
+    getUser(state: TUserState) {
       return state.user;
     },
-    getToken(state: State) {
+    getToken(state: TUserState) {
       return state.user.token;
     },
   },
   state: () => {
     return {
       user: initialUserState,
-      statusRequest: 'notSend',
     };
   },
 };

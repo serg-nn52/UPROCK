@@ -1,9 +1,9 @@
-import user, { TUserType } from './modules/user';
+import user, { TUserState } from './modules/user';
 import { createStore } from 'vuex';
 
+//RootState
 export interface State {
-  user: TUserType;
-  statusRequest: string;
+  user: TUserState;
 }
 
 const store = createStore<State>({
