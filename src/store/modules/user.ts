@@ -50,7 +50,8 @@ export default {
       state.statusRequest = 'loading';
     },
     resetState(state: TUserState) {
-      (state.statusRequest = 'notSend'), (state = initialUserState);
+      state.statusRequest = 'notSend';
+      state.user = {} as TUserType;
     },
   },
   getters: {
