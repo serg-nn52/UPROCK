@@ -8,7 +8,9 @@ npm install
 
 ### Compiles and hot-reloads for development
 
-npm run dev
+1. В корень проекта добавить .env файл с переменной VUE_APP_HOST="http://localhost:5000/"
+
+2. npm run dev
 
 ### Compiles and minifies for production
 
