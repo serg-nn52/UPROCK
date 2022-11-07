@@ -143,7 +143,7 @@ export default defineComponent({
       outline: none;
       transition-duration: 0.3s;
       @include media-breakpoint-down(sm) {
-        margin-top: 0;
+        margin-top: 10p;
       }
       &:hover {
         color: $white;
